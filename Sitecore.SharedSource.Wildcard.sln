@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sitecore.SharedSource.Wildcard", "src\Sitecore.SharedSource.Wildcard\Sitecore.SharedSource.Wildcard.csproj", "{54E475D6-B7DE-4592-A556-3F5E4AAA672A}"
+EndProject
+Project("{CAA73BB0-EF22-4D79-A57E-DF67B3BA9C80}") = "Sitecore.SharedSource.Wildcard.TDS", "src\Sitecore.SharedSource.Wildcard.TDS\Sitecore.SharedSource.Wildcard.TDS.scproj", "{875C940F-084A-4912-9659-663C95490B66}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{54E475D6-B7DE-4592-A556-3F5E4AAA672A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{54E475D6-B7DE-4592-A556-3F5E4AAA672A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{54E475D6-B7DE-4592-A556-3F5E4AAA672A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{54E475D6-B7DE-4592-A556-3F5E4AAA672A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{875C940F-084A-4912-9659-663C95490B66}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{875C940F-084A-4912-9659-663C95490B66}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{875C940F-084A-4912-9659-663C95490B66}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{875C940F-084A-4912-9659-663C95490B66}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{875C940F-084A-4912-9659-663C95490B66}.Release|Any CPU.Build.0 = Release|Any CPU
+		{875C940F-084A-4912-9659-663C95490B66}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
