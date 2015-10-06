@@ -8,6 +8,7 @@
     using System.Linq;
     using ContentSearch;
     using ContentSearch.SearchTypes;
+    using Data.Fields;
 
     public class WildcardProvider
     {
@@ -52,7 +53,13 @@
             return item?.Name == "*" && GetSetting(item?.TemplateID) != null;
         }
 
-        public static Item SearchItem(string path, string name)
+        public static Item GetDatasourceItem(Item wildcardItem, string name)
+        {
+            ReferenceField datasourceReference = wildcardItem.Fields[AppConstants.WildcardDatasourceField];
+            return GetDatasourceItem(datasourceReference?.TargetItem?.Paths.FullPath, name);
+        }
+
+        public static Item GetDatasourceItem(string path, string name)
         {
             var searchContext = Sitecore.ContentSearch.ContentSearchManager.GetIndex(GetIndexName(Sitecore.Context.Item)).CreateSearchContext(ContentSearch.Security.SearchSecurityOptions.EnableSecurityCheck);
             var result = searchContext.GetQueryable<SearchResultItem>()

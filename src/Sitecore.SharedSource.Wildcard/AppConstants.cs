@@ -6,5 +6,8 @@
     {
         public static ID WildcardSettingTemplateDatasourceTemplateField = new ID("C66E1635-8B30-4A8C-844E-0969C68FEA65");
         public static ID WildcardSettingTemplateItemField = new ID("AADE1A20-A3B5-4FD9-BFE1-08F42BC08575");
+        public static ID WildcardDatasourceField = new ID("TBA");
+
+        public static object ContextItemKey = "wildcard_item";
     }
 }
