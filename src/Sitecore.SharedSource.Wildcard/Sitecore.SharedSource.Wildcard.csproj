@@ -71,6 +71,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+    <None Include="Properties\PublishProfiles\DEVELOPMENT.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -79,18 +80,20 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Config\Include\Sitecore.SharedSource.Wildcard.config" />
+    <Content Include="App_Config\Include\Sitecore.SharedSource.Wildcard.config">
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppConstants.cs" />
+    <Compile Include="Extensions\ItemExtensions.cs" />
     <Compile Include="Pipelines\HttpRequest\WildcardItemResolver.cs" />
     <Compile Include="WildcardProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WildcardSetting.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Data\" />
     <Folder Include="Links\" />
   </ItemGroup>
   <PropertyGroup>

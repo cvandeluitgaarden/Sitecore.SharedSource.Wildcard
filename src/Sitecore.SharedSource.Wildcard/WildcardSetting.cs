@@ -8,9 +8,9 @@
     {
         public WildcardSetting(Item setting)
         {
-            ReferenceField itemReference = setting.Fields[AppConstants.WildcardSettingTemplateItemField];
+            ReferenceField itemReference = setting.Fields[AppConstants.WildcardSettingItemField];
             ItemID = itemReference?.TargetItem?.ID;
-            ReferenceField datasourceReference = setting.Fields[AppConstants.WildcardSettingTemplateItemField];
+            ReferenceField datasourceReference = setting.Fields[AppConstants.WildcardSettingItemField];
             DatasourceTemplateID = datasourceReference?.TargetItem?.ID;
         }
 

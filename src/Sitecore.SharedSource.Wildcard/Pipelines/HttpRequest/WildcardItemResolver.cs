@@ -3,30 +3,31 @@
     using Sitecore.Pipelines.HttpRequest;
     using System;
     using System.Web;
+    using System.Linq;
 
     public class WildcardItemResolver : HttpRequestProcessor
     {
         public override void Process(HttpRequestArgs args)
         {
-            if(!WildcardProvider.IsWildcardItem(Sitecore.Context.Item))
+            if(!WildcardProvider.IsWildcardItem(Context.Item))
             {
                 return;
             }
 
             string itemName = ResolveItemNameFromUrl(args.Context);
-            var wildcardItem = WildcardProvider.GetDatasourceItem(Sitecore.Context.Item, itemName);
-            if(wildcardItem == null)
+            var datasourceItem = WildcardProvider.GetDatasourceItem(Context.Item, itemName);
+            if(datasourceItem == null)
             {
                 return;
             }
 
-            args.Context.Items[AppConstants.ContextItemKey] = Sitecore.Context.Item;
-            Sitecore.Context.Item = wildcardItem; 
+            args.Context.Items[AppConstants.ContextItemKey] = Context.Item;
+            Context.Item = datasourceItem; 
         }
 
         private string ResolveItemNameFromUrl(HttpContext context)
         {
-            throw new NotImplementedException();
+            return context.Request.Url.AbsolutePath.Split(new char[] { '/' }, StringSplitOptions.RemoveEmptyEntries).LastOrDefault();
         }
     }
 }

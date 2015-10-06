@@ -9,15 +9,17 @@
     using ContentSearch;
     using ContentSearch.SearchTypes;
     using Data.Fields;
+    using System.Web;
 
     public class WildcardProvider
     {
         public static Item GetWildcardSettingsFolder(SiteInfo siteInfo)
         {
-            var node = Factory.GetConfigNode(string.Concat("/wildcard/settings/setting/*[@name = '",siteInfo.Name, ",]"));
+            string xpath = string.Concat("/sitecore/wildcard/settings/*[@name = '", siteInfo.Name, "']");
+            var node = Factory.GetConfigNode(xpath);
             if (node == null)
             {
-                node = Factory.GetConfigNode("/wildcard/settings/setting/*[@name = '']");
+                node = Factory.GetConfigNode("/sitecore/wildcard/settings/*[@name = 'Default']");
             }
 
             var path = XmlUtil.GetAttribute("path", node, true);
@@ -28,7 +30,7 @@
 
             if(!path.StartsWith("/sitecore/", System.StringComparison.OrdinalIgnoreCase))
             {
-                path = string.Concat(siteInfo.ContentStartItem, StringUtil.EnsurePrefix('/', path));
+                path = string.Concat(siteInfo.RootPath, StringUtil.EnsurePrefix('/', path));
             }
 
             return Sitecore.Context.Database.GetItem(path);
@@ -42,15 +44,15 @@
                 return null;
             }
 
-            return folder.GetChildren(Collections.ChildListOptions.SkipSorting)
-                .Where(setting => setting[AppConstants.WildcardSettingTemplateDatasourceTemplateField] == templateId.ToString())
+            var settings = folder.GetChildren(Collections.ChildListOptions.SkipSorting);
+            return settings.Where(setting => setting[AppConstants.WildcardSettingDatasourceTemplateField] == templateId.ToString())
                 .Select(setting => new WildcardSetting(setting))
                 .FirstOrDefault();
         }
 
         public static bool IsWildcardItem(Item item)
         {
-            return item?.Name == "*" && GetSetting(item?.TemplateID) != null;
+            return item?.Name == "*" && item?.TemplateID == AppConstants.WildcardItemTemplate;
         }
 
         public static Item GetDatasourceItem(Item wildcardItem, string name)
@@ -63,15 +65,20 @@
         {
             var searchContext = Sitecore.ContentSearch.ContentSearchManager.GetIndex(GetIndexName(Sitecore.Context.Item)).CreateSearchContext(ContentSearch.Security.SearchSecurityOptions.EnableSecurityCheck);
             var result = searchContext.GetQueryable<SearchResultItem>()
-                .Where(x => x.Path.StartsWith(path, System.StringComparison.OrdinalIgnoreCase) && x.Name.Equals(name, System.StringComparison.OrdinalIgnoreCase))
+                .Where(x => x.Name.Equals(name, System.StringComparison.OrdinalIgnoreCase))
                 .FirstOrDefault();
 
-            return result.GetItem();
+            return result?.GetItem();
         }
 
         private static string GetIndexName(Item item)
         {
             return Sitecore.ContentSearch.ContentSearchManager.GetContextIndexName(new SitecoreIndexableItem(item));
+        }
+
+        public static Item GetContextWildcardItem()
+        {
+            return HttpContext.Current.Items[AppConstants.ContextItemKey] as Item; 
         }
     }
 }
