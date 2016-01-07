@@ -10,12 +10,16 @@
     using ContentSearch.SearchTypes;
     using Data.Fields;
     using System.Web;
+    using System.Collections.Generic;
+    using System;
+    using Extensions;
+    using Sitecore.Links;
 
     public class WildcardProvider
     {
         public static Item GetWildcardSettingsFolder(SiteInfo siteInfo)
         {
-            string xpath = string.Concat("/sitecore/wildcard/settings/*[@name = '", siteInfo.Name, "']");
+            string xpath = $"/sitecore/wildcard/settings/*[@name = '{siteInfo.Name}']";
             var node = Factory.GetConfigNode(xpath);
             if (node == null)
             {
@@ -79,6 +83,71 @@
         public static Item GetContextWildcardItem()
         {
             return HttpContext.Current.Items[AppConstants.ContextItemKey] as Item; 
+        }
+
+        public static string GetWildCardItemRelativeSitecorePathFromUrl(string path, Item wildcardItem)
+        {
+            List<string> itemPathParts = new List<string>();
+            List<string> urlParts = path.Replace(".aspx", string.Empty)
+                                        .Split(new char[] { '/' }, 100, StringSplitOptions.RemoveEmptyEntries)
+                                        .Reverse()
+                                        .ToList();
+
+            Item wildcardAncestor = wildcardItem;
+            while (wildcardAncestor.IsWildcardItem() && !string.IsNullOrEmpty(urlParts.LastOrDefault()))
+            {
+                itemPathParts.Insert(0, urlParts.FirstOrDefault());
+                urlParts.RemoveAt(0);
+                wildcardAncestor = wildcardAncestor.Parent;
+            }
+
+            string itemRelativePath = string.Join("/", itemPathParts);
+            return itemRelativePath;
+        }
+
+        public static string GetWildcardItemUrl(Sitecore.Data.Items.Item wildcardItem, Item realItem, bool useDisplayName, UrlOptions urlOptions = null)
+        {
+            if (urlOptions == null)
+            {
+                urlOptions = UrlOptions.DefaultOptions;
+            }
+
+            urlOptions.AlwaysIncludeServerUrl = true;
+            if (wildcardItem == null || realItem == null)
+            {
+                return string.Empty;
+            }
+
+            var scLinkProvider = new LinkProvider();
+            string wildCardUrl = scLinkProvider.GetItemUrl(wildcardItem, urlOptions).Replace(",-w-,", string.Empty);
+            Uri uri = new Uri(wildCardUrl);
+            List<string> wildcardItemPathParts = uri.AbsolutePath.Split(new char[] { '/' }, StringSplitOptions.RemoveEmptyEntries).ToList();
+            ReferenceField wildcardDatasource = wildcardItem.Fields[AppConstants.WildcardDatasourceField];
+            if (wildcardDatasource != null)
+            {
+                List<string> realItemPathParts = new List<string>();
+                if (realItem.Axes.GetAncestors().Any(a => a.ID == wildcardDatasource.TargetID))
+                {
+                    Item ancestor = realItem.Parent;
+                    while (ancestor.ID != wildcardDatasource.TargetID)
+                    {
+                        realItemPathParts.Insert(0, useDisplayName ? ancestor.DisplayName : ancestor.Name);
+                        ancestor = ancestor.Parent;
+                    }
+                }
+
+                string itemUrlName = useDisplayName ? realItem.DisplayName : realItem.Name;
+                realItemPathParts.Add(itemUrlName);
+                wildcardItemPathParts.AddRange(realItemPathParts);
+            }
+
+            UriBuilder uriBuilder = new UriBuilder { Scheme = uri.Scheme, Host = uri.Host, Port = uri.Port, Path = string.Join("/", wildcardItemPathParts) };
+            return uriBuilder.Uri.ToString();
+        }
+
+        public static string GetWildcardItemUrl(Sitecore.Data.Items.Item wildcardItem, Item realItem, bool useDisplayName)
+        {
+            return GetWildcardItemUrl(wildcardItem, realItem, useDisplayName, UrlOptions.DefaultOptions);
         }
     }
 }

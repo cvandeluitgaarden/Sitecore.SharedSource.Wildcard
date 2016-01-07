@@ -14,5 +14,15 @@
 
             return wildcardItem;
         }
+
+        public static bool IsWildcardItem(this Item item)
+        {
+            return WildcardProvider.IsWildcardItem(item);
+        }
+
+        public static bool IsDatasourceItemForWildcard(this Item item)
+        {
+            return WildcardProvider.GetSetting(item.TemplateID) != null;
+        }
     }
 }

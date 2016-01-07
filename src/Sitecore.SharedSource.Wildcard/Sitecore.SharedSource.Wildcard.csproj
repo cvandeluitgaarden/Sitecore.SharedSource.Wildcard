@@ -47,10 +47,13 @@
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Sitecore.ContentSearch">
-      <HintPath>..\..\..\..\..\..\Websites-SIM\exm.estate.local\Website\bin\Sitecore.ContentSearch.dll</HintPath>
+      <HintPath>E:\Websites\sandbox.local\Website\bin\Sitecore.ContentSearch.dll</HintPath>
     </Reference>
     <Reference Include="Sitecore.Kernel">
-      <HintPath>..\..\..\..\..\..\Websites-SIM\exm.estate.local\Website\bin\Sitecore.Kernel.dll</HintPath>
+      <HintPath>E:\Websites\sandbox.local\Website\bin\Sitecore.Kernel.dll</HintPath>
+    </Reference>
+    <Reference Include="Sitecore.Mvc">
+      <HintPath>E:\Websites\sandbox.local\Website\bin\Sitecore.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -88,14 +91,14 @@
   <ItemGroup>
     <Compile Include="AppConstants.cs" />
     <Compile Include="Extensions\ItemExtensions.cs" />
+    <Compile Include="Links\LinkProvider.cs" />
     <Compile Include="Pipelines\HttpRequest\WildcardItemResolver.cs" />
+    <Compile Include="Pipelines\Mvc\GetPageItem\GetFromRouteUrl.cs" />
     <Compile Include="WildcardProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WildcardSetting.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Links\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

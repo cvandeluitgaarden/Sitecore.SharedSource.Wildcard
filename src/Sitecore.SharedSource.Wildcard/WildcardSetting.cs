@@ -3,6 +3,7 @@
     using Sitecore.Data;
     using Data.Fields;
     using Sitecore.Data.Items;
+    using System.Collections.Generic;
 
     public class WildcardSetting
     {
@@ -18,4 +19,6 @@
 
         public ID DatasourceTemplateID { get; private set; }
     }
+
+    
 }
