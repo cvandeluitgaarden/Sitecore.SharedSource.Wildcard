@@ -105,7 +105,7 @@
             return itemRelativePath;
         }
 
-        public static string GetWildcardItemUrl(Sitecore.Data.Items.Item wildcardItem, Item realItem, bool useDisplayName, UrlOptions urlOptions = null)
+        public static string GetWildcardItemUrl(Sitecore.Data.Items.Item wildcardItem, Item realItem, bool useDisplayName = false, UrlOptions urlOptions = null)
         {
             if (urlOptions == null)
             {

@@ -12,26 +12,28 @@
     <UseWebConfigReplacement>false</UseWebConfigReplacement>
     <DeleteAppCodeCompiledFiles>true</DeleteAppCodeCompiledFiles>
     <LegacyFileReplacement>false</LegacyFileReplacement>
-    <SourceWebPhysicalPath>
-    </SourceWebPhysicalPath>
-    <SourceWebProject>
-    </SourceWebProject>
-    <SourceWebVirtualPath>
-    </SourceWebVirtualPath>
-    <SitecoreDatabase>
-    </SitecoreDatabase>
+    <SourceWebPhysicalPath>..\Sitecore.SharedSource.Wildcard</SourceWebPhysicalPath>
+    <SourceWebProject>{ba1901f1-4e62-49fc-9154-4ac6bb1f7811}|src\Sitecore.SharedSource.Wildcard\Sitecore.SharedSource.Wildcard.csproj</SourceWebProject>
+    <SourceWebVirtualPath>/Sitecore.SharedSource.Wildcard.csproj</SourceWebVirtualPath>
+    <SitecoreDatabase>master</SitecoreDatabase>
     <AssemblyName>Sitecore.SharedSource.Wildcard.TDS</AssemblyName>
     <Name>Sitecore.SharedSource.Wildcard.TDS</Name>
     <RootNamespace>Sitecore.SharedSource.Wildcard.TDS</RootNamespace>
+    <EnableCodeGeneration>false</EnableCodeGeneration>
+    <ManageRoles>False</ManageRoles>
+    <AssemblyStatus>Exclude</AssemblyStatus>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>.\bin\Debug\</OutputPath>
     <RecursiveDeployAction>Ignore</RecursiveDeployAction>
-    <SitecoreDeployFolder>E:\Data\Development\Sitecore\modules.qodecube.local\Website</SitecoreDeployFolder>
-    <SitecoreWebUrl>http://modules.qodecube.local/</SitecoreWebUrl>
+    <SitecoreDeployFolder>
+    </SitecoreDeployFolder>
+    <SitecoreWebUrl>
+    </SitecoreWebUrl>
     <SitecoreAccessGuid>fe55a408-0d67-4eb1-ac60-de3e027ff0f8</SitecoreAccessGuid>
     <InstallSitecoreConnector>True</InstallSitecoreConnector>
+    <DisableFileDeployment>False</DisableFileDeployment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <DebugSymbols>false</DebugSymbols>
@@ -91,6 +93,12 @@
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Sitecore.SharedSource.Wildcard\Sitecore.SharedSource.Wildcard.csproj">
+      <Project>{ba1901f1-4e62-49fc-9154-4ac6bb1f7811}</Project>
+      <Name>Sitecore.SharedSource.Wildcard</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\HedgehogDevelopment\SitecoreProject\v9.0\HedgehogDevelopment.SitecoreProject.targets" />
 </Project>
