@@ -27,7 +27,8 @@
 
         private string ResolveItemNameFromUrl(HttpContext context)
         {
-            return context.Request.Url.AbsolutePath.Split(new char[] { '/' }, StringSplitOptions.RemoveEmptyEntries).LastOrDefault();
+            string name = context.Request.Url.AbsolutePath.Split(new char[] { '/' }, StringSplitOptions.RemoveEmptyEntries).LastOrDefault();
+            return HttpUtility.UrlDecode(name);
         }
     }
 }
