@@ -39,7 +39,10 @@
             char[] chrArray = new char[] { '/' };
             string[] strArrays = url.Split(chrArray, StringSplitOptions.RemoveEmptyEntries);
             url = this.GetPathFromParts(strArrays, routeData);
-            url = url.Remove(0, Sitecore.Context.Site.SiteInfo.VirtualFolder.Length - 1);
+
+            if (url.Length > 0)
+                url = url.Remove(0, Sitecore.Context.Site.SiteInfo.VirtualFolder.Length - 1);
+
             return url;
         }
 
@@ -89,7 +92,10 @@
                 return wildcardItem;
             }
 
-            HttpContext.Current.Items.Add(AppConstants.ContextItemKey, wildcardItem);
+
+            if(!HttpContext.Current.Items.Contains(AppConstants.ContextItemKey))
+                HttpContext.Current.Items.Add(AppConstants.ContextItemKey, wildcardItem);
+
             string itemRelativePath = StringUtil.EnsurePrefix('/', WildcardProvider.GetWildCardItemRelativeSitecorePathFromUrl(path, wildcardItem));
             string itemPath = string.Concat(datasourceReference.TargetItem.Paths.FullPath, itemRelativePath);
             return Context.Database.GetItem(itemPath);

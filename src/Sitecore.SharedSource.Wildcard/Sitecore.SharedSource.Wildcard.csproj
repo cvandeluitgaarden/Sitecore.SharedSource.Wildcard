@@ -47,13 +47,13 @@
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Sitecore.ContentSearch">
-      <HintPath>E:\Websites\sandbox.local\Website\bin\Sitecore.ContentSearch.dll</HintPath>
+      <HintPath>References\Sitecore.ContentSearch.dll</HintPath>
     </Reference>
     <Reference Include="Sitecore.Kernel">
-      <HintPath>E:\Websites\sandbox.local\Website\bin\Sitecore.Kernel.dll</HintPath>
+      <HintPath>References\Sitecore.Kernel.dll</HintPath>
     </Reference>
     <Reference Include="Sitecore.Mvc">
-      <HintPath>E:\Websites\sandbox.local\Website\bin\Sitecore.Mvc.dll</HintPath>
+      <HintPath>References\Sitecore.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
