@@ -1,4 +1,4 @@
-﻿namespace Aeres.Core.Pipelines.Mvc.GetPageItem
+﻿namespace Sitecore.SharedSource.Wildcard.Pipelines.Mvc.GetPageItem
 {
     using Sitecore.Mvc.Configuration;
     using Sitecore.Mvc.Pipelines.Response.GetPageItem;
