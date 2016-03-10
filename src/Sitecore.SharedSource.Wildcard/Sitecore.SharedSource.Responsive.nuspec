@@ -8,7 +8,7 @@
     <owners>$author$</owners>
     <licenseUrl>https://opensource.org/licenses/MIT</licenseUrl>
     <projectUrl>https://github.com/cvandeluitgaarden/Sitecore.SharedSource.Wildcard</projectUrl>
-    <iconUrl>https://github.com/cvandeluitgaarden/Sitecore.SharedSource.Wildcard/blob/master/resources/nuget/sitecore-logo.png</iconUrl>
+    <iconUrl>https://raw.githubusercontent.com/cvandeluitgaarden/Sitecore.SharedSource.Wildcard/master/resources/nuget/sitecore-logo.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
     <releaseNotes>Summary of changes made in this release of the package.</releaseNotes>
