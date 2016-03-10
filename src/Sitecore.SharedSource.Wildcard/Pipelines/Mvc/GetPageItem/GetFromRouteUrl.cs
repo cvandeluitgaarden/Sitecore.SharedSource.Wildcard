@@ -1,14 +1,17 @@
 ﻿namespace Sitecore.SharedSource.Wildcard.Pipelines.Mvc.GetPageItem
 {
-    using Diagnostics;
-    using Data.Items;
     using Sitecore.Mvc.Configuration;
     using Sitecore.Mvc.Pipelines.Response.GetPageItem;
     using System;
     using System.Web.Routing;
-    using Extensions;
-    using Data.Fields;
     using System.Web;
+    using Sitecore.Data.Items;
+    using Sitecore.Data.Fields;
+    using Sitecore;
+    using Sitecore.Diagnostics;
+    using System.Linq;
+    using Sitecore.SharedSource.Wildcard;
+    using Sitecore.SharedSource.Wildcard.Extensions;
 
     public class GetFromRouteUrl : Sitecore.Mvc.Pipelines.Response.GetPageItem.GetFromRouteUrl
     {
@@ -30,6 +33,7 @@
             {
                 return null;
             }
+
             string url = route.Url;
             if (string.IsNullOrWhiteSpace(url))
             {
@@ -39,10 +43,7 @@
             char[] chrArray = new char[] { '/' };
             string[] strArrays = url.Split(chrArray, StringSplitOptions.RemoveEmptyEntries);
             url = this.GetPathFromParts(strArrays, routeData);
-
-            if (url.Length > 0)
-                url = url.Remove(0, Sitecore.Context.Site.SiteInfo.VirtualFolder.Length - 1);
-
+            url = url.Remove(0, Sitecore.Context.Site.SiteInfo.VirtualFolder.Length - 1);
             return url;
         }
 
@@ -92,13 +93,20 @@
                 return wildcardItem;
             }
 
-
-            if(!HttpContext.Current.Items.Contains(AppConstants.ContextItemKey))
+            if (HttpContext.Current.Items.Contains(AppConstants.ContextItemKey))
+            {
+                HttpContext.Current.Items[AppConstants.ContextItemKey] = wildcardItem;
+            }
+            else
+            {
                 HttpContext.Current.Items.Add(AppConstants.ContextItemKey, wildcardItem);
+            }
 
             string itemRelativePath = StringUtil.EnsurePrefix('/', WildcardProvider.GetWildCardItemRelativeSitecorePathFromUrl(path, wildcardItem));
             string itemPath = string.Concat(datasourceReference.TargetItem.Paths.FullPath, itemRelativePath);
-            return Context.Database.GetItem(itemPath);
+
+            string[] pathSegments = itemPath.Split('/');
+            return WildcardProvider.GetDatasourceItem(string.Join("/", pathSegments.Take(pathSegments.Length - 1)), pathSegments.LastOrDefault());
         }
     }
 }

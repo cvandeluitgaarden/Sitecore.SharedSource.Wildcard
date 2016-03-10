@@ -105,7 +105,7 @@
             return itemRelativePath;
         }
 
-        public static string GetWildcardItemUrl(Sitecore.Data.Items.Item wildcardItem, Item realItem, bool useDisplayName = false, UrlOptions urlOptions = null)
+        public static string GetWildcardItemUrl(Sitecore.Data.Items.Item wildcardItem, Item realItem, bool useDisplayName, UrlOptions urlOptions = null)
         {
             if (urlOptions == null)
             {
@@ -119,8 +119,11 @@
             }
 
             var scLinkProvider = new LinkProvider();
-            string wildCardUrl = scLinkProvider.GetItemUrl(wildcardItem, urlOptions).Replace(",-w-,", string.Empty);
-            Uri uri = new Uri(wildCardUrl);
+            string wildcardUrl = scLinkProvider.GetItemUrl(wildcardItem, urlOptions);
+            int wildcardCount = wildcardUrl.Split('/').Where(x => x == ",-w-,").Count();
+            wildcardUrl = wildcardUrl.Replace(",-w-,", string.Empty);
+
+            Uri uri = new Uri(wildcardUrl);
             List<string> wildcardItemPathParts = uri.AbsolutePath.Split(new char[] { '/' }, StringSplitOptions.RemoveEmptyEntries).ToList();
             ReferenceField wildcardDatasource = wildcardItem.Fields[AppConstants.WildcardDatasourceField];
             if (wildcardDatasource != null)
@@ -129,8 +132,10 @@
                 if (realItem.Axes.GetAncestors().Any(a => a.ID == wildcardDatasource.TargetID))
                 {
                     Item ancestor = realItem.Parent;
-                    while (ancestor.ID != wildcardDatasource.TargetID)
+                    int idx = 1;
+                    while (ancestor.ID != wildcardDatasource.TargetID && idx < wildcardCount)
                     {
+                        idx++;
                         realItemPathParts.Insert(0, useDisplayName ? ancestor.DisplayName : ancestor.Name);
                         ancestor = ancestor.Parent;
                     }
