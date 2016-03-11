@@ -1,4 +1,4 @@
-<img src="https://raw.githubusercontent.com/cvandeluitgaarden/Sitecore.SharedSource.Wildcard/master/resources/nuget/sitecore-logo.png" width="50" style="float:left;margin-right:10px" />  #Wildcard module for Sitecore
+#Wildcard module for Sitecore
 <b>Working with wildcard items with a few simple settings</b>
 
 ## Multisite configuration
@@ -14,17 +14,22 @@ In the Sitecore.SharedSource.Wildcard.config you will find the wildcard where yo
 </code>
 
 ## Create the datasource folder
-Just create a folder or bucket where you want to store pages which could be shared among mutiple websites.
+<p>Just create a folder or bucket where you want to store pages which could be shared among mutiple websites.</p>
 
 ## Create and configure the wildcard setting
-Create an item named * within your website(s) based on the template 
-/sitecore/templates/modules/wildcard/wildcard. Set the fiel datasource of 
-the * item to the root of your datasource folder or bucket.
+<p>Create an item named * within your website(s) based on the template 
+/sitecore/templates/modules/wildcard/wildcard. Set the field datasource of 
+the * item to the root of your datasource folder or bucket.</p>
+<sub>
+Example /sitecore/content/Website/Home/News/* points to /sitecore/content/Website/Shared/News
+</sub>
 
 ## Create and configure the wildcard datasource setting
-Create a new wildcard datasource setting item in the folder which is specified in the config file. Set the field item wildcard to the created * item and the field template to the template which the folder or bucket contains.
+<p>Create a new wildcard datasource setting item in the folder which is specified in the config file. Set the field item wildcard to the created * item and the field template to the template which the folder or bucket contains.</p>
+
 
 ## How to code
+
 
 
 
