@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>$author$</authors>
+    <owners>$author$</owners>
+    <licenseUrl>https://opensource.org/licenses/MIT</licenseUrl>
+    <projectUrl>https://github.com/cvandeluitgaarden/Sitecore.SharedSource.Wildcard</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/cvandeluitgaarden/Sitecore.SharedSource.Wildcard/master/resources/nuget/sitecore-logo.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>$description$</description>
+    <releaseNotes>Summary of changes made in this release of the package.</releaseNotes>
+    <copyright>Copyright 2016</copyright>
+    <tags>Sitecore Wildcard</tags>
+  </metadata>
+  <files>
+    <file src="App_Config\**\*.*" target="" />
+    <file src="Sitecore_Packages\Sitecore.SharedSource.Wildcard-*.zip" target="" />
+  </files>
+</package>

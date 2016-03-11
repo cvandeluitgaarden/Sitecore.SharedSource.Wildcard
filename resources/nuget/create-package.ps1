@@ -1,0 +1,1 @@
+nuget pack ..\..\src\Sitecore.SharedSource.Wildcard\Sitecore.SharedSource.Wildcard.csproj -OutputDirectory "Release"
