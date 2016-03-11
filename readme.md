@@ -17,13 +17,13 @@ In the Sitecore.SharedSource.Wildcard.config you will find the wildcard where yo
 </code>
 
 
-<sub>Figure 1</sub>
+<span>Figure 1</span>
 ![Sitecore tree](https://raw.githubusercontent.com/cvandeluitgaarden/Sitecore.SharedSource.Wildcard/master/resources/readme/sitecore_tree.png)
 
-<sub>Figure 2</sub>
+<span>Figure 2</span>
 ![Sitecore wildcard setting](https://raw.githubusercontent.com/cvandeluitgaarden/Sitecore.SharedSource.Wildcard/master/resources/readme/sitecore_wildcard.png)
 
-<sub>Figure 3</sub>
+<span>Figure 3</span>
 ![Sitecore tree](https://raw.githubusercontent.com/cvandeluitgaarden/Sitecore.SharedSource.Wildcard/master/resources/readme/sitecore_wildcard_setting.png)
 
 ## Create the datasource folder
