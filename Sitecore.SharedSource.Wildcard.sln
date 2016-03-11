@@ -1,11 +1,16 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{CAA73BB0-EF22-4D79-A57E-DF67B3BA9C80}") = "Sitecore.SharedSource.Wildcard.TDS", "src\Sitecore.SharedSource.Wildcard.TDS\Sitecore.SharedSource.Wildcard.TDS.scproj", "{875C940F-084A-4912-9659-663C95490B66}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sitecore.SharedSource.Wildcard", "src\Sitecore.SharedSource.Wildcard\Sitecore.SharedSource.Wildcard.csproj", "{BA1901F1-4E62-49FC-9154-4AC6BB1F7811}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{43BDCCBA-D685-48DD-A6E3-93C306EE5F87}"
+	ProjectSection(SolutionItems) = preProject
+		readme.md = readme.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
