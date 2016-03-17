@@ -19,6 +19,11 @@
     {
         public static Item GetWildcardSettingsFolder(SiteInfo siteInfo)
         {
+            if(Sitecore.Context.Database == null)
+            {
+                return null;
+            }
+
             string xpath = $"/sitecore/wildcard/settings/*[@name = '{siteInfo.Name}']";
             var node = Factory.GetConfigNode(xpath);
             if (node == null)
