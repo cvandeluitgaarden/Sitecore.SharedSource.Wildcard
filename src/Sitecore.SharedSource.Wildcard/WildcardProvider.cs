@@ -68,11 +68,14 @@
         public static Item GetDatasourceItem(Item wildcardItem, string name)
         {
             ReferenceField datasourceReference = wildcardItem.Fields[AppConstants.WildcardDatasourceField];
-            return GetDatasourceItem(datasourceReference?.TargetItem?.Paths.FullPath, name, datasourceReference == null ? false : datasourceReference.TargetItem.IsABucket());
+            return GetDatasourceItem(datasourceReference?.TargetItem?.Paths.FullPath, name);
         }
 
-        public static Item GetDatasourceItem(string path, string name, bool isBucket = false)
+        public static Item GetDatasourceItem(string path, string name)
         {
+            Item item = Sitecore.Context.Database.GetItem(path);
+            bool isBucket = item == null ? false : item.IsABucket();
+
             var searchName = isBucket ? StringUtil.EnsurePrefix('/', name) : name;
             var searchContext = Sitecore.ContentSearch.ContentSearchManager.GetIndex(GetIndexName(Sitecore.Context.Item)).CreateSearchContext(Sitecore.ContentSearch.Security.SearchSecurityOptions.EnableSecurityCheck);
             var result = searchContext.GetQueryable<SearchResultItem>().Where(x =>
