@@ -14,6 +14,7 @@
     using System;
     using Extensions;
     using Sitecore.Links;
+    using Sitecore.Buckets.Extensions;
 
     public class WildcardProvider
     {
@@ -67,15 +68,16 @@
         public static Item GetDatasourceItem(Item wildcardItem, string name)
         {
             ReferenceField datasourceReference = wildcardItem.Fields[AppConstants.WildcardDatasourceField];
-            return GetDatasourceItem(datasourceReference?.TargetItem?.Paths.FullPath, name);
+            return GetDatasourceItem(datasourceReference?.TargetItem?.Paths.FullPath, name, datasourceReference == null ? false : datasourceReference.TargetItem.IsABucket());
         }
 
-        public static Item GetDatasourceItem(string path, string name)
+        public static Item GetDatasourceItem(string path, string name, bool isBucket = false)
         {
+            var searchName = isBucket ? StringUtil.EnsurePrefix('/', name) : name;
             var searchContext = Sitecore.ContentSearch.ContentSearchManager.GetIndex(GetIndexName(Sitecore.Context.Item)).CreateSearchContext(Sitecore.ContentSearch.Security.SearchSecurityOptions.EnableSecurityCheck);
             var result = searchContext.GetQueryable<SearchResultItem>().Where(x =>
-                x.Path.StartsWith(Sitecore.StringUtil.EnsurePostfix('/', path)) &&
-                x.Path.EndsWith(name, StringComparison.OrdinalIgnoreCase) &&
+                x.Path.StartsWith(Sitecore.StringUtil.EnsurePostfix('/', path), StringComparison.OrdinalIgnoreCase) &&
+                x.Path.EndsWith(searchName, StringComparison.OrdinalIgnoreCase) &&
                 x.Language == Sitecore.Context.Item.Language.Name)
                 .FirstOrDefault();
 
@@ -101,15 +103,14 @@
                                         .ToList();
 
             Item wildcardAncestor = wildcardItem;
-            if (wildcardAncestor.IsWildcardItem())
-            {
-                while (!string.IsNullOrEmpty(urlParts.LastOrDefault()))
+            
+                while (wildcardAncestor.IsWildcardItem() && !string.IsNullOrEmpty(urlParts.LastOrDefault()))
                 {
                     itemPathParts.Insert(0, urlParts.FirstOrDefault());
                     urlParts.RemoveAt(0);
                     wildcardAncestor = wildcardAncestor.Parent;
                 }
-            }
+            
 
             string itemRelativePath = string.Join("/", itemPathParts);
             return itemRelativePath;
