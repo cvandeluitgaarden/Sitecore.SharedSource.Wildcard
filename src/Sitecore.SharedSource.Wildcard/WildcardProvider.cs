@@ -72,9 +72,11 @@
 
         public static Item GetDatasourceItem(string path, string name)
         {
-            var searchContext = Sitecore.ContentSearch.ContentSearchManager.GetIndex(GetIndexName(Sitecore.Context.Item)).CreateSearchContext(ContentSearch.Security.SearchSecurityOptions.EnableSecurityCheck);
-            var result = searchContext.GetQueryable<SearchResultItem>()
-                .Where(x => x.Name.Equals(name, System.StringComparison.OrdinalIgnoreCase))
+            var searchContext = Sitecore.ContentSearch.ContentSearchManager.GetIndex(GetIndexName(Sitecore.Context.Item)).CreateSearchContext(Sitecore.ContentSearch.Security.SearchSecurityOptions.EnableSecurityCheck);
+            var result = searchContext.GetQueryable<SearchResultItem>().Where(x =>
+                x.Path.StartsWith(Sitecore.StringUtil.EnsurePostfix('/', path)) &&
+                x.Path.EndsWith(name, StringComparison.OrdinalIgnoreCase) &&
+                x.Language == Sitecore.Context.Item.Language.Name)
                 .FirstOrDefault();
 
             return result?.GetItem();
