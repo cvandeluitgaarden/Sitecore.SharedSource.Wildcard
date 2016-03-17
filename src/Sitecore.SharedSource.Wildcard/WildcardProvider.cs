@@ -101,11 +101,14 @@
                                         .ToList();
 
             Item wildcardAncestor = wildcardItem;
-            while (wildcardAncestor.IsWildcardItem() && !string.IsNullOrEmpty(urlParts.LastOrDefault()))
+            if (wildcardAncestor.IsWildcardItem())
             {
-                itemPathParts.Insert(0, urlParts.FirstOrDefault());
-                urlParts.RemoveAt(0);
-                wildcardAncestor = wildcardAncestor.Parent;
+                while (!string.IsNullOrEmpty(urlParts.LastOrDefault()))
+                {
+                    itemPathParts.Insert(0, urlParts.FirstOrDefault());
+                    urlParts.RemoveAt(0);
+                    wildcardAncestor = wildcardAncestor.Parent;
+                }
             }
 
             string itemRelativePath = string.Join("/", itemPathParts);
