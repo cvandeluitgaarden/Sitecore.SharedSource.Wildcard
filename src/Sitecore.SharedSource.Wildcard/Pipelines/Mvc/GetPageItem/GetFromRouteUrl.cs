@@ -43,7 +43,12 @@
             char[] chrArray = new char[] { '/' };
             string[] strArrays = url.Split(chrArray, StringSplitOptions.RemoveEmptyEntries);
             url = this.GetPathFromParts(strArrays, routeData);
-            url = url.Remove(0, Sitecore.Context.Site.SiteInfo.VirtualFolder.Length - 1);
+
+            int removeLength = Sitecore.Context.Site.SiteInfo.VirtualFolder.Length - 1;
+            if (removeLength <= url.Length)
+            {
+                url = url.Remove(0, Sitecore.Context.Site.SiteInfo.VirtualFolder.Length - 1);
+            }
             return url;
         }
 
