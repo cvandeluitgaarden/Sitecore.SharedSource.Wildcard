@@ -14,16 +14,27 @@
     using System;
     using Extensions;
     using Sitecore.Links;
+    using Sitecore.Buckets.Extensions;
 
     public class WildcardProvider
     {
         public static Item GetWildcardSettingsFolder(SiteInfo siteInfo)
         {
+            if(Sitecore.Context.Database == null || siteInfo == null)
+            {
+                return null;
+            }
+
             string xpath = $"/sitecore/wildcard/settings/*[@name = '{siteInfo.Name}']";
             var node = Factory.GetConfigNode(xpath);
             if (node == null)
             {
                 node = Factory.GetConfigNode("/sitecore/wildcard/settings/*[@name = 'Default']");
+            }
+
+            if(node == null)
+            {
+                return null;
             }
 
             var path = XmlUtil.GetAttribute("path", node, true);
@@ -67,9 +78,15 @@
 
         public static Item GetDatasourceItem(string path, string name)
         {
-            var searchContext = Sitecore.ContentSearch.ContentSearchManager.GetIndex(GetIndexName(Sitecore.Context.Item)).CreateSearchContext(ContentSearch.Security.SearchSecurityOptions.EnableSecurityCheck);
-            var result = searchContext.GetQueryable<SearchResultItem>()
-                .Where(x => x.Name.Equals(name, System.StringComparison.OrdinalIgnoreCase))
+            Item item = Sitecore.Context.Database.GetItem(path);
+            bool isBucket = item == null ? false : item.IsABucket();
+
+            var searchName = isBucket ? StringUtil.EnsurePrefix('/', name) : name;
+            var searchContext = Sitecore.ContentSearch.ContentSearchManager.GetIndex(GetIndexName(Sitecore.Context.Item)).CreateSearchContext(Sitecore.ContentSearch.Security.SearchSecurityOptions.EnableSecurityCheck);
+            var result = searchContext.GetQueryable<SearchResultItem>().Where(x =>
+                x.Path.StartsWith(Sitecore.StringUtil.EnsurePostfix('/', path), StringComparison.OrdinalIgnoreCase) &&
+                x.Path.EndsWith(searchName, StringComparison.OrdinalIgnoreCase) &&
+                x.Language == Sitecore.Context.Item.Language.Name)
                 .FirstOrDefault();
 
             return result?.GetItem();
@@ -94,18 +111,20 @@
                                         .ToList();
 
             Item wildcardAncestor = wildcardItem;
-            while (wildcardAncestor.IsWildcardItem() && !string.IsNullOrEmpty(urlParts.LastOrDefault()))
-            {
-                itemPathParts.Insert(0, urlParts.FirstOrDefault());
-                urlParts.RemoveAt(0);
-                wildcardAncestor = wildcardAncestor.Parent;
-            }
+            
+                while (wildcardAncestor.IsWildcardItem() && !string.IsNullOrEmpty(urlParts.LastOrDefault()))
+                {
+                    itemPathParts.Insert(0, urlParts.FirstOrDefault());
+                    urlParts.RemoveAt(0);
+                    wildcardAncestor = wildcardAncestor.Parent;
+                }
+            
 
             string itemRelativePath = string.Join("/", itemPathParts);
             return itemRelativePath;
         }
 
-        public static string GetWildcardItemUrl(Sitecore.Data.Items.Item wildcardItem, Item realItem, bool useDisplayName = false, UrlOptions urlOptions = null)
+        public static string GetWildcardItemUrl(Sitecore.Data.Items.Item wildcardItem, Item realItem, bool useDisplayName, UrlOptions urlOptions = null)
         {
             if (urlOptions == null)
             {
@@ -119,8 +138,11 @@
             }
 
             var scLinkProvider = new LinkProvider();
-            string wildCardUrl = scLinkProvider.GetItemUrl(wildcardItem, urlOptions).Replace(",-w-,", string.Empty);
-            Uri uri = new Uri(wildCardUrl);
+            string wildcardUrl = scLinkProvider.GetItemUrl(wildcardItem, urlOptions);
+            int wildcardCount = wildcardUrl.Split('/').Where(x => x == ",-w-,").Count();
+            wildcardUrl = wildcardUrl.Replace(",-w-,", string.Empty);
+
+            Uri uri = new Uri(wildcardUrl);
             List<string> wildcardItemPathParts = uri.AbsolutePath.Split(new char[] { '/' }, StringSplitOptions.RemoveEmptyEntries).ToList();
             ReferenceField wildcardDatasource = wildcardItem.Fields[AppConstants.WildcardDatasourceField];
             if (wildcardDatasource != null)
@@ -129,8 +151,10 @@
                 if (realItem.Axes.GetAncestors().Any(a => a.ID == wildcardDatasource.TargetID))
                 {
                     Item ancestor = realItem.Parent;
-                    while (ancestor.ID != wildcardDatasource.TargetID)
+                    int idx = 1;
+                    while (ancestor.ID != wildcardDatasource.TargetID && idx < wildcardCount)
                     {
+                        idx++;
                         realItemPathParts.Insert(0, useDisplayName ? ancestor.DisplayName : ancestor.Name);
                         ancestor = ancestor.Parent;
                     }
