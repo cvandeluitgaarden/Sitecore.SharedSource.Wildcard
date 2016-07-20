@@ -42,21 +42,20 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Sitecore.Buckets, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Websites\Amphia\Website\Website\bin\Sitecore.Buckets.dll</HintPath>
+    <Reference Include="Sitecore.Buckets">
+      <HintPath>..\..\..\..\..\Websites\GGD Hart voor Brabant\GGDWebsites-2016\references\Sitecore.Buckets.dll</HintPath>
     </Reference>
-    <Reference Include="Sitecore.ContentSearch, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Websites\Amphia\Website\Website\bin\Sitecore.ContentSearch.dll</HintPath>
+    <Reference Include="Sitecore.ContentSearch">
+      <HintPath>..\..\..\..\..\Websites\GGD Hart voor Brabant\GGDWebsites-2016\references\Sitecore.ContentSearch.dll</HintPath>
     </Reference>
-    <Reference Include="Sitecore.Kernel, Version=8.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Websites\Amphia\Website\Website\bin\Sitecore.Kernel.dll</HintPath>
+    <Reference Include="Sitecore.ContentSearch.Linq">
+      <HintPath>..\..\..\..\..\Websites\GGD Hart voor Brabant\GGDWebsites-2016\references\Sitecore.ContentSearch.Linq.dll</HintPath>
     </Reference>
-    <Reference Include="Sitecore.Mvc, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Websites\Amphia\Website\Website\bin\Sitecore.Mvc.dll</HintPath>
+    <Reference Include="Sitecore.Kernel">
+      <HintPath>..\..\..\..\..\Websites\GGD Hart voor Brabant\GGDWebsites-2016\references\Sitecore.Kernel.dll</HintPath>
+    </Reference>
+    <Reference Include="Sitecore.Mvc">
+      <HintPath>..\..\..\..\..\Websites\GGD Hart voor Brabant\GGDWebsites-2016\references\Sitecore.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />

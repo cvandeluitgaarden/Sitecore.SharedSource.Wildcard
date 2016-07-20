@@ -44,11 +44,15 @@
             string[] strArrays = url.Split(chrArray, StringSplitOptions.RemoveEmptyEntries);
             url = this.GetPathFromParts(strArrays, routeData);
 
-            int removeLength = Sitecore.Context.Site.SiteInfo.VirtualFolder.Length - 1;
-            if (removeLength <= url.Length)
+            if (url.StartsWith(Sitecore.Context.Site.SiteInfo.VirtualFolder) && url.Length != Sitecore.Context.Site.SiteInfo.VirtualFolder.Length)
             {
-                url = url.Remove(0, Sitecore.Context.Site.SiteInfo.VirtualFolder.Length - 1);
+                int removeLength = Sitecore.Context.Site.SiteInfo.VirtualFolder.Length - 1;
+                if (removeLength <= url.Length)
+                {
+                    url = url.Remove(0, Sitecore.Context.Site.SiteInfo.VirtualFolder.Length - 1);
+                }
             }
+          
             return url;
         }
 
