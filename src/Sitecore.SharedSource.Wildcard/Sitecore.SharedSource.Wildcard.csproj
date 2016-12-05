@@ -45,14 +45,17 @@
     <Reference Include="Sitecore.Buckets">
       <HintPath>..\..\..\..\..\Websites\GGD Hart voor Brabant\GGDWebsites-2016\references\Sitecore.Buckets.dll</HintPath>
     </Reference>
-    <Reference Include="Sitecore.ContentSearch">
-      <HintPath>..\..\..\..\..\Websites\GGD Hart voor Brabant\GGDWebsites-2016\references\Sitecore.ContentSearch.dll</HintPath>
+    <Reference Include="Sitecore.ContentSearch, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Sitecore.ContentSearch.NoReferences.8.1.160519\lib\NET45\Sitecore.ContentSearch.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Sitecore.ContentSearch.Linq">
-      <HintPath>..\..\..\..\..\Websites\GGD Hart voor Brabant\GGDWebsites-2016\references\Sitecore.ContentSearch.Linq.dll</HintPath>
+    <Reference Include="Sitecore.ContentSearch.Linq, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Sitecore.ContentSearch.Linq.NoReferences.8.1.160519\lib\NET45\Sitecore.ContentSearch.Linq.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Sitecore.Kernel">
-      <HintPath>..\..\..\..\..\Websites\GGD Hart voor Brabant\GGDWebsites-2016\references\Sitecore.Kernel.dll</HintPath>
+    <Reference Include="Sitecore.Kernel, Version=8.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Sitecore.Kernel.NoReferences.8.1.160519\lib\NET45\Sitecore.Kernel.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Sitecore.Mvc">
       <HintPath>..\..\..\..\..\Websites\GGD Hart voor Brabant\GGDWebsites-2016\references\Sitecore.Mvc.dll</HintPath>
