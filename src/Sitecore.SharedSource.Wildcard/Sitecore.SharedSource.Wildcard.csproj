@@ -34,28 +34,33 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
+    <Optimize>false</Optimize>
     <OutputPath>bin\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Sitecore.Buckets">
-      <HintPath>..\..\..\..\..\Websites\GGD Hart voor Brabant\GGDWebsites-2016\references\Sitecore.Buckets.dll</HintPath>
+    <Reference Include="Sitecore.Buckets, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\VSO\Aeres\External references\Sitecore.Buckets.dll</HintPath>
     </Reference>
-    <Reference Include="Sitecore.ContentSearch">
-      <HintPath>..\..\..\..\..\Websites\GGD Hart voor Brabant\GGDWebsites-2016\references\Sitecore.ContentSearch.dll</HintPath>
+    <Reference Include="Sitecore.ContentSearch, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\VSO\Aeres\External references\Sitecore.ContentSearch.dll</HintPath>
     </Reference>
-    <Reference Include="Sitecore.ContentSearch.Linq">
-      <HintPath>..\..\..\..\..\Websites\GGD Hart voor Brabant\GGDWebsites-2016\references\Sitecore.ContentSearch.Linq.dll</HintPath>
+    <Reference Include="Sitecore.ContentSearch.Linq, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\VSO\Aeres\External references\Sitecore.ContentSearch.Linq.dll</HintPath>
     </Reference>
-    <Reference Include="Sitecore.Kernel">
-      <HintPath>..\..\..\..\..\Websites\GGD Hart voor Brabant\GGDWebsites-2016\references\Sitecore.Kernel.dll</HintPath>
+    <Reference Include="Sitecore.Kernel, Version=8.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\VSO\Aeres\External references\Sitecore.Kernel.dll</HintPath>
     </Reference>
-    <Reference Include="Sitecore.Mvc">
-      <HintPath>..\..\..\..\..\Websites\GGD Hart voor Brabant\GGDWebsites-2016\references\Sitecore.Mvc.dll</HintPath>
+    <Reference Include="Sitecore.Mvc, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\VSO\Aeres\External references\Sitecore.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
