@@ -66,6 +66,7 @@
         }
 
         public static bool IsWildcardItem(Item item)
+
         {
             return item?.Name == "*" && item?.TemplateID == AppConstants.WildcardItemTemplate;
         }
@@ -78,6 +79,11 @@
 
         public static Item GetDatasourceItem(string path, string name)
         {
+            if(string.IsNullOrWhiteSpace(path))
+            {
+                return null;
+            }
+
             Item item = Sitecore.Context.Database.GetItem(path);
             bool isBucket = item == null ? false : item.IsABucket();
 
