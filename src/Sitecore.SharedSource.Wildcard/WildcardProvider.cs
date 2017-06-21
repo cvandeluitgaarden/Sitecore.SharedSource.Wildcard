@@ -89,13 +89,19 @@
 
             var searchName = isBucket ? StringUtil.EnsurePrefix('/', name) : name;
             var searchContext = Sitecore.ContentSearch.ContentSearchManager.GetIndex(GetIndexName(Sitecore.Context.Item)).CreateSearchContext(Sitecore.ContentSearch.Security.SearchSecurityOptions.EnableSecurityCheck);
-            var result = searchContext.GetQueryable<SearchResultItem>().Where(x =>
+
+            var results = searchContext.GetQueryable<SearchResultItem>().Where(x =>
                 x.Path.StartsWith(Sitecore.StringUtil.EnsurePostfix('/', path), StringComparison.OrdinalIgnoreCase) &&
                 x.Path.EndsWith(searchName, StringComparison.OrdinalIgnoreCase) &&
-                x.Language == Sitecore.Context.Item.Language.Name)
-                .FirstOrDefault();
+                x.Language == Sitecore.Context.Item.Language.Name);
 
-            return result?.GetItem();
+            if(isBucket)
+            {
+                // Dot not return non-bucketable items, like underlying contentblocks.
+                results = results.Where(c => c["__bucketable"] == "1");
+            }
+
+            return results.FirstOrDefault()?.GetItem();
         }
 
         private static string GetIndexName(Item item)
